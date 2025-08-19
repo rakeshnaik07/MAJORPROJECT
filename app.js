@@ -24,6 +24,8 @@ const userRouter = require("./routes/user.js");
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static("public"));
+
 app.use(express.urlencoded({ extended: true })); // to parse form data
 app.use(express.static(path.join(__dirname, 'public'))); // to serve static files
 app.use(methodOverride('_method')); // to support PUT and DELETE methods in forms
