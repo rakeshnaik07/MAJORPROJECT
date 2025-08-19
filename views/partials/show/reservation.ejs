@@ -1,0 +1,31 @@
+<!-- Reservation Box -->
+<div class="reservation-box shadow-sm p-4 rounded">
+  <h3 class="fw-bold">₹<%= listing.price %> <small class="text-muted">/ night</small></h3>
+  <p class="text-muted mb-3">Prices include all fees</p>
+
+  <form action="/listings/<%= listing._id %>/reserve"  method="POST"  >
+    <div class="border rounded overflow-hidden mb-3">
+      <div class="d-flex">
+        <div class="flex-fill border-end p-2">
+          <small class="text-uppercase fw-bold">Check-in</small>
+          <input type="date" name="checkIn" class="form-control border-0 p-0" required>
+        </div>
+        <div class="flex-fill p-2">
+          <small class="text-uppercase fw-bold">Check-out</small>
+          <input type="date" name="checkOut" class="form-control border-0 p-0" required>
+        </div>
+      </div>
+      <div class="border-top p-2">
+        <small class="text-uppercase fw-bold">Guests</small>
+        <select name="guests" class="form-select border-0 p-0" required>
+          <option value="1">1 Guest</option>
+          <option value="2">2 Guests</option>
+          <option value="3">3 Guests</option>
+          <option value="4">4 Guests</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn reserve-btn w-100 py-2 fw-bold">Reserve</button>
+  </form>
+  <p class="text-center text-muted mt-2">You won’t be charged yet</p>
+</div>

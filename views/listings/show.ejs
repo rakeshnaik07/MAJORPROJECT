@@ -1,0 +1,28 @@
+<% layout("/layouts/boilerplate.ejs") -%>
+
+<div class="container my-5">
+
+  <!-- Title -->
+  <h2 class="fw-bold mb-3"><%= listing.title %></h2>
+
+  <!-- Image -->
+  <%- include("../partials/show/image") %>
+
+  <div class="row g-5">
+
+    <!-- Left Column (Description + Reviews) -->
+    <div class="col-lg-7 mb-4">
+      <%- include("../partials/show/description") %>
+      <%- include("../partials/show/reviews") %>
+    </div>
+
+    <!-- Right Column (Reservation Box) -->
+    <div class="col-lg-5 mb-4">
+      <%- include("../partials/show/reservation") %>
+    </div>
+
+  </div>
+</div>
+
+<!-- Reviews Modal -->
+<%- include("../partials/show/reviewModal") %>

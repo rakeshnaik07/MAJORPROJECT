@@ -1,0 +1,96 @@
+/* ===============================
+   Show Page Styles
+   =============================== */
+
+/* Image Grid Section */
+.listing-images img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
+}
+
+.main-img {
+  height: 100%;
+  min-height: 400px;   /* Big image height */
+}
+
+.small-img {
+  height: 195px;       /* Small grid image height */
+}
+
+/* Reservation Box */
+.reservation-box {
+  border: 1px solid #ddd;
+  border-radius: 1rem;
+  background: #fff;
+  position: sticky;
+  top: 100px;
+}
+
+@media (max-width: 991px) {
+  .reservation-box {
+    position: relative;
+    top: auto;
+    margin: 2rem 0;
+    width: 100%;
+  }
+}
+
+.reserve-btn {
+  background: linear-gradient(90deg, #ff385c, #e11d48);
+  border: none;
+  border-radius: 0.75rem;
+  color: #fff;
+  font-size: 1.1rem;
+  transition: background 0.3s ease;
+}
+
+.reserve-btn:hover {
+  background: linear-gradient(90deg, #e11d48, #be123c);
+}
+
+/* Reviews */
+.review-card {
+  background: #fff;
+  border-radius: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Avatar */
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: #ff385c;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+
+.star-rating {
+  direction: rtl;
+  display: inline-flex;
+}
+.star-rating input {
+  display: none;
+}
+.star-rating label {
+  font-size: 1.5rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #FFD700;
+}
+

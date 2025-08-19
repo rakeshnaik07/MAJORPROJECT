@@ -1,0 +1,77 @@
+/* Hero Section */
+.hero-section {
+  height: 60vh;
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+              url('https://plus.unsplash.com/premium_photo-1746327707418-481a552e6f58?w=600&auto=format&fit=crop&q=60') center/cover no-repeat;
+  color: #fff;
+  border-radius: 0 0 2rem 2rem;
+}
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+}
+.hero-subtitle {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+/* Homepage Listings */
+.homepage-listings .listing-card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-height: 260px; /* keeps card compact */
+}
+.homepage-listings .listing-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Image */
+.homepage-listings .listing-card img {
+  height: 180px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Card Body */
+.homepage-listings .card-body {
+  padding: 6px 8px;
+}
+.homepage-listings .card-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.homepage-listings .price {
+  font-size: 12px;
+  color: #111;
+}
+.homepage-listings .location {
+  font-size: 11px;
+  color: #555;
+}
+
+/* Animations */
+.animate-fade {
+  animation: fadeIn 1.2s ease;
+}
+.animate-slide {
+  animation: slideUp 1.4s ease;
+}
+.animate-zoom {
+  animation: zoomIn 0.8s ease;
+}
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+@keyframes slideUp {
+  from {transform: translateY(20px); opacity: 0;}
+  to {transform: translateY(0); opacity: 1;}
+}
+@keyframes zoomIn {
+  from {transform: scale(0.9); opacity: 0;}
+  to {transform: scale(1); opacity: 1;}
+}

@@ -1,0 +1,19 @@
+<!-- Description -->
+<section class="mb-5">
+  <h4 class="fw-bold mb-3">About this place</h4>
+  <p class="mb-2">Entire rental unit in <%= listing.location %>, <%= listing.country %></p>
+  <p class="text-muted">Hosted by <strong>@<%= listing.owner.username %></strong></p>
+  <hr>
+  <p><%= listing.description %></p>
+  <p><strong>Price:</strong> ₹<%= listing.price %></p>
+</section>
+
+<!-- Owner Controls -->
+<% if(currUser && currUser._id.equals(listing.owner._id)){ %>
+<div class="d-flex gap-3 mb-5">
+  <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger px-4">Edit Listing</a>
+  <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+    <button class="btn btn-dark px-4">Delete Listing</button>
+  </form>
+</div>
+<% } %>

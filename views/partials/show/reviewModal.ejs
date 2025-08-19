@@ -1,0 +1,45 @@
+<!-- All Reviews Modal -->
+<div class="modal fade" id="allReviewsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">All Reviews</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-4">
+          <% listing.reviews.forEach(review => { %>
+            <div class="col-md-6">
+              <div class="p-3 border rounded shadow-sm review-card h-100">
+                <div class="d-flex align-items-center mb-2">
+                  <div class="avatar me-2">
+                    <%= review.author.username.charAt(0).toUpperCase() %>
+                  </div>
+                  <div>
+                    <h6 class="mb-0">@<%= review.author.username %></h6>
+                    <small class="text-muted">
+                      <% for(let i = 1; i <= 5; i++) { %>
+                        <% if(i <= review.rating) { %>
+                          <span style="color:#FFD700;">★</span>
+                        <% } else { %>
+                          <span style="color:#ccc;">★</span>
+                        <% } %>
+                      <% } %>
+                      · Posted recently
+                    </small>
+                  </div>
+                </div>
+                <p class="mb-2"><%= review.comment %></p>
+                <% if(currUser && currUser._id.equals(review.author._id)) { %>
+                  <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                  </form>
+                <% } %>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

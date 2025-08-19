@@ -1,0 +1,154 @@
+<% layout("/layouts/boilerplate.ejs") -%>
+
+<div class="container my-5" style="max-width: 900px;">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h2 class="fw-bold mb-0">Your Profile</h2>
+  </div>
+
+  <!-- Profile Card -->
+  <div class="card shadow-sm border-0" style="border-radius: 16px;">
+    <div class="card-body p-4">
+
+      <div class="d-flex align-items-center gap-3 mb-4">
+        <!-- Avatar -->
+        <% 
+          const initials = (user.username || 'U').slice(0,1).toUpperCase();
+          const hasAvatar = user.avatar && (user.avatar.url || user.avatar);
+          const avatarUrl = user.avatar?.url || user.avatar; 
+        %>
+
+        <% if (hasAvatar) { %>
+          <img src="<%= avatarUrl %>" alt="avatar" 
+               style="width:72px;height:72px;object-fit:cover;border-radius:50%;">
+        <% } else { %>
+          <div class="d-inline-flex align-items-center justify-content-center"
+               style="width:72px;height:72px;border-radius:50%;background:#ff385c;color:#fff;font-weight:700;">
+            <%= initials %>
+          </div>
+        <% } %>
+
+        <div>
+          <h4 class="mb-0"><%= user.name || user.username %></h4>
+          <small class="text-muted">@<%= user.username %></small>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="p-3 border rounded-3">
+            <div class="text-muted mb-1">Email</div>
+            <div class="fw-semibold"><%= user.email || '-' %></div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="p-3 border rounded-3">
+            <div class="text-muted mb-1">Joined</div>
+            <div class="fw-semibold">
+              <%= (user.createdAt ? new Date(user.createdAt).toDateString() : '-') %>
+            </div>
+          </div>
+        </div>
+
+        <% if (user.phone) { %>
+        <div class="col-md-6">
+          <div class="p-3 border rounded-3">
+            <div class="text-muted mb-1">Phone</div>
+            <div class="fw-semibold"><%= user.phone %></div>
+          </div>
+        </div>
+        <% } %>
+
+        <% if (user.country || user.city) { %>
+        <div class="col-md-6">
+          <div class="p-3 border rounded-3">
+            <div class="text-muted mb-1">Location</div>
+            <div class="fw-semibold"><%= [user.city, user.country].filter(Boolean).join(", ") %></div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+
+      <div class="mt-4 d-flex flex-wrap gap-2">
+        <a href="/account/edit" class="btn btn-dark">Edit Profile</a>
+        <a href="/account/change-password" class="btn btn-outline-dark">Change Password</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reservations Section -->
+  <a id="reservations"></a>
+  <div class="mt-5">
+    <div class="d-flex align-items-center justify-content-between">
+      <h3 class="fw-bold mb-3">Your Reservations</h3>
+      <a href="/listings" class="btn btn-sm btn-outline-dark">Explore Listings</a>
+    </div>
+
+    <% if (!reservations || reservations.length === 0) { %>
+      <p class="text-muted">You have no reservations yet.</p>
+    <% } else { %>
+      <div class="row g-4">
+        <% reservations.forEach(res => { 
+             const ci = new Date(res.checkIn);
+             const co = new Date(res.checkOut);
+             const nights = Math.max(1, Math.ceil((co - ci) / (1000*60*60*24)));
+
+             let cover = null;
+             if (res.listing) {
+               if (res.listing.images && res.listing.images.length > 0) {
+                 cover = res.listing.images[0].url;
+               } else if (res.listing.image) {
+                 cover = res.listing.image.url;
+               }
+             }
+        %>
+          <div class="col-md-6">
+            <div class="card shadow-sm border-0 h-100" style="border-radius: 14px;">
+              <% if (cover) { %>
+                <img src="<%= cover %>" class="card-img-top" 
+                     style="height: 180px; object-fit: cover; border-radius: 14px 14px 0 0;">
+              <% } else { %>
+                <img src="/images/default-listing.jpg" class="card-img-top"
+                     style="height: 180px; object-fit: cover; border-radius: 14px 14px 0 0;"
+                     alt="No Image Available">
+              <% } %>
+
+              <div class="card-body">
+                <% if (res.listing) { %>
+                  <h5 class="card-title mb-2">
+                    <a href="/listings/<%= res.listing._id %>" class="text-dark text-decoration-none">
+                      <%= res.listing.title %>
+                    </a>
+                  </h5>
+
+                  <p class="mb-1 text-muted">
+                    <i class="fa-solid fa-location-dot me-1"></i>
+                    <%= [res.listing.location, res.listing.country].filter(Boolean).join(", ") %>
+                  </p>
+                <% } else { %>
+                  <h5 class="card-title mb-2 text-danger">[Listing deleted]</h5>
+                  <p class="text-muted">This listing is no longer available.</p>
+                <% } %>
+
+                <p class="mb-1">
+                  <i class="fa-solid fa-calendar-day me-1"></i>
+                  <%= ci.toDateString() %> → <%= co.toDateString() %> 
+                  <span class="text-muted">(<%= nights %> night<%= nights>1 ? 's' : '' %>)</span>
+                </p>
+
+                <p class="mb-1"><strong>Guests:</strong> <%= res.guests %></p>
+                <p class="fw-bold text-danger mb-0">₹<%= res.totalPrice %></p>
+              </div>
+
+              <div class="card-footer bg-white border-0 d-flex gap-2 pb-3 px-3">
+                <% if (res.listing) { %>
+                  <a href="/listings/<%= res.listing._id %>" class="btn btn-sm btn-dark">View listing</a>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</div>
