@@ -117,6 +117,10 @@ app.use((err, req, res, next) => {
     res.render("error.ejs",{message})
 });
 
+app.get("/", (req, res) => {
+  res.send("🚀 Welcome to MAJORPROJECT Backend API! Use /books or /users etc.");
+});
+
 
 
 
