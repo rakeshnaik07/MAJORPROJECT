@@ -24,8 +24,6 @@ const userRouter = require("./routes/user.js");
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static("public"));
-
 app.use(express.urlencoded({ extended: true })); // to parse form data
 app.use(express.static(path.join(__dirname, 'public'))); // to serve static files
 app.use(methodOverride('_method')); // to support PUT and DELETE methods in forms
@@ -115,10 +113,6 @@ app.use("/listings/:id/reviews", reviewRouter)
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "Something went wrong!" } = err;
     res.render("error.ejs",{message})
-});
-
-app.get("/", (req, res) => {
-  res.send("🚀 Welcome to MAJORPROJECT Backend API! Use /books or /users etc.");
 });
 
 
