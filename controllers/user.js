@@ -1,4 +1,5 @@
 const User = require("../models/user");
+
 module.exports.signup =  async (req, res) => {
     try {
         // Your signup logic here

@@ -52,7 +52,7 @@ const store = MongoStore.create({
     touchAfter: 24 * 3600,
 })
 
-store.on('error', ()=> {
+store.on('error', (err)=> {
     console.log("Error in Mongo session", err);
 })
 
@@ -106,9 +106,15 @@ const accountRoutes = require("./routes/account");
 const { options } = require('joi');
 app.use("/account", accountRoutes);
 
+
+
 app.use("/", userRouter);  // Now signup will be at /users/signup
 app.use("/listings", listingRouter)
 app.use("/listings/:id/reviews", reviewRouter)
+
+app.get("/", (req, res) => {
+    res.render("home.ejs");  // make sure you have views/home.ejs
+});
 
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "Something went wrong!" } = err;
@@ -118,6 +124,7 @@ app.use((err, req, res, next) => {
 
 
 
-app.listen(8080,() =>{
-    console.log('Server is running on port 8080');
-})
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
