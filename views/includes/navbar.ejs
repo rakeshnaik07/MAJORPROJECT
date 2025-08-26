@@ -1,101 +1,57 @@
-<nav class="wanderlust-navbar navbar navbar-expand-lg sticky-top">
+<!-- Navbar -->
+<nav class="staynest-navbar navbar navbar-expand-lg sticky-top shadow-sm bg-white">
   <div class="container-fluid px-4">
-    
-    <!-- Left: Logo -->
-    <a class="wanderlust-brand navbar-brand d-flex align-items-center" href="/listings">
-      <div class="brand-icon">
-        <i class="fa-solid fa-globe-americas"></i>
-      </div>
-      <span class="brand-text">StayNest</span>
+
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" href="/listings">
+      <i class="fa-solid fa-globe-americas me-2"></i>
+      <span>StayNest</span>
     </a>
 
-    <!-- Center: Enhanced Search (desktop) -->
-    <div class="wanderlust-search-container d-none d-lg-flex">
-      <div class="search-wrapper">
-        <div class="search-section">
-          <label>Where</label>
-          <input type="text" placeholder="Search destinations" class="search-input">
-        </div>
-        <div class="search-divider"></div>
-        <div class="search-section">
-          <label>Check in</label>
-          <input type="text" placeholder="Add dates" class="search-input">
-        </div>
-        <div class="search-divider"></div>
-        <div class="search-section">
-          <label>Check out</label>
-          <input type="text" placeholder="Add dates" class="search-input">
-        </div>
-        <div class="search-divider"></div>
-        <div class="search-section">
-          <label>Who</label>
-          <input type="text" placeholder="Add guests" class="search-input">
-        </div>
-        <button class="search-btn">
+    <!-- Desktop Search -->
+    <div class="d-none d-lg-flex flex-grow-1 justify-content-center">
+      <div class="search-wrapper border rounded-pill px-3 py-1 d-flex align-items-center shadow-sm">
+        <input type="text" class="form-control border-0 me-2" placeholder="Search destinations">
+        <button class="btn btn-primary rounded-circle p-2">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
     </div>
 
-    <!-- Right: Navigation & Profile -->
-    <div class="navbar-right d-flex align-items-center">
-      
-      <!-- Desktop Navigation -->
-      <div class="nav-links d-none d-lg-flex">
-        <a href="/listings" class="nav-item">Explore</a>
-        <a href="/listings/new" class="nav-item host-link">
-          <i class="fa-solid fa-plus me-1"></i>
-          Host your home
+    <!-- Navigation & Profile -->
+    <div class="d-flex align-items-center">
+      <!-- Links -->
+      <div class="d-none d-lg-flex align-items-center me-3">
+        <a href="/listings" class="nav-link text-dark me-3">Explore</a>
+        <a href="/listings/new" class="btn btn-outline-primary d-flex align-items-center">
+          <i class="fa-solid fa-plus me-1"></i>Host your home
         </a>
       </div>
 
-      <!-- Language & Currency -->
-      <div class="utility-links d-none d-lg-flex">
-        <button class="utility-btn">
-          <i class="fa-solid fa-globe"></i>
+      <!-- Profile Dropdown -->
+      <div class="dropdown">
+        <button class="btn btn-light rounded-circle d-flex align-items-center" data-bs-toggle="dropdown">
+          <i class="fa-solid fa-bars me-2"></i>
+          <i class="fa-solid fa-user"></i>
         </button>
-      </div>
-      
-      <!-- Profile Menu -->
-      <div class="profile-menu dropdown">
-        <button class="profile-btn btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <div class="profile-btn-content">
-            <i class="fa-solid fa-bars"></i>
-            <div class="profile-avatar">
-              <i class="fa-solid fa-user"></i>
-            </div>
-          </div>
-        </button>
-        <ul class="dropdown-menu profile-dropdown">
-          <% if(!currUser) {%>
-          <li><a class="dropdown-item" href="/signup">
-            <i class="fa-solid fa-user-plus me-2"></i>Sign up
-          </a></li>
-          <li><a class="dropdown-item" href="/login">
-            <i class="fa-solid fa-sign-in-alt me-2"></i>Log in
-          </a></li>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <% if(!currUser) { %>
+          <li><a class="dropdown-item" href="/signup"><i class="fa-solid fa-user-plus me-2"></i>Sign up</a></li>
+          <li><a class="dropdown-item" href="/login"><i class="fa-solid fa-sign-in-alt me-2"></i>Log in</a></li>
           <% } %>
-          <% if(currUser) {%>
-          <li><a class="dropdown-item" href="/logout">
-            <i class="fa-solid fa-sign-in-alt me-2"></i>Log out
-          </a></li>
+          <% if(currUser) { %>
+          <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-sign-out-alt me-2"></i>Log out</a></li>
           <% } %>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="/listings/new">
-            <i class="fa-solid fa-home me-2"></i>Host your home
-          </a></li>
-          <li><a class="dropdown-item" href="/account">
-            <i class="fa-solid fa-user-cog me-2"></i>Account
-          </a></li>
+          <li><a class="dropdown-item" href="/listings/new"><i class="fa-solid fa-home me-2"></i>Host your home</a></li>
+          <li><a class="dropdown-item" href="/account"><i class="fa-solid fa-user-cog me-2"></i>Account</a></li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">
-            <i class="fa-solid fa-question-circle me-2"></i>Help Center
-          </a></li>
+          <li><a class="dropdown-item" href="#"><i class="fa-solid fa-question-circle me-2"></i>Help Center</a></li>
         </ul>
       </div>
 
       <!-- Mobile Menu Toggle -->
-      <button class="mobile-menu-btn d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+      <button class="btn btn-light d-lg-none ms-2" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
         <i class="fa-solid fa-bars"></i>
       </button>
     </div>
@@ -103,19 +59,15 @@
   </div>
 </nav>
 
-<!-- Enhanced Mobile Search -->
-<div class="mobile-search-container d-lg-none">
-  <div class="mobile-search-wrapper" data-bs-toggle="modal" data-bs-target="#searchModal">
-    <div class="mobile-search-content">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <div class="mobile-search-text">
-        <span class="search-title">Where to?</span>
-        <span class="search-subtitle">Anywhere • Any week • Add guests</span>
-      </div>
-      <div class="filter-btn">
-        <i class="fa-solid fa-sliders-h"></i>
-      </div>
+<!-- Mobile Search -->
+<div class="d-lg-none p-3 bg-light">
+  <div class="d-flex align-items-center border rounded-pill px-3 py-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#searchModal">
+    <i class="fa-solid fa-magnifying-glass me-3 text-muted"></i>
+    <div>
+      <div class="fw-bold">Where to?</div>
+      <div class="text-muted small">Anywhere • Any week • Add guests</div>
     </div>
+    <i class="fa-solid fa-sliders-h ms-auto text-muted"></i>
   </div>
 </div>
 
@@ -126,52 +78,26 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
   </div>
   <div class="offcanvas-body">
-    <div class="mobile-nav-sections">
-      <div class="mobile-nav-section">
-         <% if(!currUser) {%>
-        <a href="/signup" class="mobile-nav-item">
-          <i class="fa-solid fa-user-plus me-3"></i>Sign up
-        </a>
-        <a href="/login" class="mobile-nav-item">
-          <i class="fa-solid fa-sign-in-alt me-3"></i>Log in
-        </a>
-        <% } %>
-        <% if(currUser) {%>
-          <a href="/logout" class="mobile-nav-item">
-          <i class="fa-solid fa-sign-in-alt me-3"></i>Log out
-        </a>
-        <% } %>
-      </div>
-      
-      <hr class="mobile-divider">
-      
-      <div class="mobile-nav-section">
-        <a href="/listings" class="mobile-nav-item">
-          <i class="fa-solid fa-home me-3"></i>Home
-        </a>
-        <a href="/listings" class="mobile-nav-item">
-          <i class="fa-solid fa-compass me-3"></i>Explore
-        </a>
-        <a href="/listings/new" class="mobile-nav-item">
-          <i class="fa-solid fa-plus me-3"></i>Host your home
-        </a>
-      </div>
-      
-      <hr class="mobile-divider">
-      
-      <div class="mobile-nav-section">
-        <a href="#" class="mobile-nav-item">
-          <i class="fa-solid fa-question-circle me-3"></i>Help Center
-        </a>
-        <a href="#" class="mobile-nav-item">
-          <i class="fa-solid fa-globe me-3"></i>Language
-        </a>
-      </div>
+    <div class="d-flex flex-column">
+      <% if(!currUser) { %>
+      <a href="/signup" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-user-plus me-3"></i>Sign up</a>
+      <a href="/login" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-sign-in-alt me-3"></i>Log in</a>
+      <% } %>
+      <% if(currUser) { %>
+      <a href="/logout" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-sign-out-alt me-3"></i>Log out</a>
+      <% } %>
+      <hr>
+      <a href="/listings" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-home me-3"></i>Home</a>
+      <a href="/listings" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-compass me-3"></i>Explore</a>
+      <a href="/listings/new" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-plus me-3"></i>Host your home</a>
+      <hr>
+      <a href="#" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-question-circle me-3"></i>Help Center</a>
+      <a href="#" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-globe me-3"></i>Language</a>
     </div>
   </div>
 </div>
 
-<!-- Search Modal for Mobile -->
+<!-- Mobile Search Modal -->
 <div class="modal fade" id="searchModal" tabindex="-1">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
@@ -179,27 +105,26 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <div class="search-modal-content">
-          <h2>Where to?</h2>
-          <div class="modal-search-form">
-            <div class="modal-search-group">
-              <label>I'm looking for</label>
-              <input type="text" placeholder="Search destinations" class="modal-search-input">
+        <div class="p-4">
+          <h2 class="mb-4">Where to?</h2>
+          <div class="d-flex flex-column gap-3">
+            <div>
+              <label class="form-label">I'm looking for</label>
+              <input type="text" class="form-control" placeholder="Search destinations">
             </div>
-            <div class="modal-search-group">
-              <label>When</label>
-              <div class="date-inputs">
-                <input type="text" placeholder="Check in" class="modal-search-input">
-                <input type="text" placeholder="Check out" class="modal-search-input">
+            <div>
+              <label class="form-label">When</label>
+              <div class="d-flex gap-2">
+                <input type="text" class="form-control" placeholder="Check in">
+                <input type="text" class="form-control" placeholder="Check out">
               </div>
             </div>
-            <div class="modal-search-group">
-              <label>Who</label>
-              <input type="text" placeholder="Add guests" class="modal-search-input">
+            <div>
+              <label class="form-label">Who</label>
+              <input type="text" class="form-control" placeholder="Add guests">
             </div>
-            <button class="modal-search-btn">
-              <i class="fa-solid fa-magnifying-glass me-2"></i>
-              Search
+            <button class="btn btn-primary mt-3 d-flex align-items-center justify-content-center">
+              <i class="fa-solid fa-magnifying-glass me-2"></i>Search
             </button>
           </div>
         </div>

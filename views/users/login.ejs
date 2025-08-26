@@ -1,47 +1,140 @@
 <% layout("/layouts/boilerplate.ejs") -%>
 
-<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
-  <div class="card shadow-lg border-0 p-4" style="max-width: 420px; border-radius: 20px;">
-    <div class="card-body">
-      <h3 class="text-center mb-4 fw-bold">Welcome Back</h3>
-      
-      <form action="/login" method="POST" novalidate>
-        <div class="mb-3">
-          <label for="username" class="form-label fw-semibold">Username</label>
-          <input 
-            type="text"
-            name="username"
-            id="username"
-            class="form-control form-control-lg rounded-pill"
-            placeholder="Enter your username"
-            required
-          />
-        </div>
+<div class="auth-container fade-in">
+  <div class="auth-card slide-up">
+    <h3 class="text-center mb-4">Welcome Back</h3>
 
-        <div class="mb-3">
-          <label for="password" class="form-label fw-semibold">Password</label>
-          <input 
-            type="password"
-            name="password"
-            id="password"
-            class="form-control form-control-lg rounded-pill"
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-
-        <div class="d-grid">
-          <button class="btn btn-danger btn-lg rounded-pill fw-semibold">
-            Continue
-          </button>
-        </div>
-      </form>
-
-      <div class="text-center mt-3">
-        <small class="text-muted">
-          Don’t have an account? <a href="/signup" class="text-decoration-none fw-semibold text-danger">Sign up</a>
-        </small>
+    <form action="/login" method="POST" novalidate>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Enter your username"
+          required
+        />
       </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Enter your password"
+          required
+        />
+      </div>
+
+      <button class="btn-auth">Continue</button>
+    </form>
+
+    <div class="auth-footer">
+      <small>
+        Don’t have an account? <a href="/signup">Sign up</a>
+      </small>
     </div>
   </div>
 </div>
+
+<style>
+/* Container */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #fffaf6;
+}
+
+/* Card */
+.auth-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Form */
+.auth-card h3 {
+  color: #222;
+  font-weight: 700;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #f97316;
+}
+
+/* Button */
+.btn-auth {
+  background: #f97316;
+  color: #fff;
+  padding: 0.75rem;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-auth:hover {
+  background: #e25e00;
+}
+
+/* Footer */
+.auth-footer {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.auth-footer a {
+  color: #f97316;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Animations */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+}
+.slide-up {
+  transform: translateY(30px);
+  opacity: 0;
+  animation: slideUp 1s ease forwards;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  to { transform: translateY(0); opacity: 1; }
+}
+</style>

@@ -112,9 +112,22 @@ app.use("/", userRouter);  // Now signup will be at /users/signup
 app.use("/listings", listingRouter)
 app.use("/listings/:id/reviews", reviewRouter)
 
-app.get("/", (req, res) => {
-    res.render("home.ejs");  // make sure you have views/home.ejs
+const Listing = require("./models/listing"); // adjust path if needed
+
+// Home / Landing page
+app.get("/", async (req, res) => {
+  try {
+    // fetch latest 4 listings (you can change limit)
+    const allListings = await Listing.find({}).limit(4);
+
+    res.render("home", { allListings });
+  } catch (err) {
+    console.error("Error loading home listings:", err);
+    req.flash("error", "Could not load home page.");
+    res.redirect("/listings");
+  }
 });
+
 
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "Something went wrong!" } = err;
