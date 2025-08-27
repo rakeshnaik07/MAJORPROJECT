@@ -38,7 +38,7 @@
 }
 
 .reserve-btn {
-  background: linear-gradient(90deg, #ff385c, #e11d48);
+  background: linear-gradient(90deg, #f97316, #f97316);
   border: none;
   border-radius: 0.75rem;
   color: #fff;
@@ -47,7 +47,7 @@
 }
 
 .reserve-btn:hover {
-  background: linear-gradient(90deg, #e11d48, #be123c);
+  background: linear-gradient(90deg, #f97316, #f97316);
 }
 
 /* Reviews */
@@ -65,7 +65,7 @@
 .avatar {
   width: 40px;
   height: 40px;
-  background: #ff385c;
+  background: #f97316;
   color: #fff;
   border-radius: 50%;
   display: flex;

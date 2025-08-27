@@ -1,135 +1,201 @@
+<!-- 
+    REDESIGNED STAYNEST NAVBAR (EJS VERSION)
+    - Added a new "✨ AI Assistant" button.
+    - Added the HTML structure for the offcanvas chat sidebar.
+-->
+
 <!-- Navbar -->
-<nav class="staynest-navbar navbar navbar-expand-lg sticky-top shadow-sm bg-white">
-  <div class="container-fluid px-4">
+<nav class="staynest-navbar-v2 navbar navbar-expand-lg sticky-top bg-white" id="navbar">
+    <div class="container-fluid nav-container">
 
-    <!-- Logo -->
-    <a class="navbar-brand d-flex align-items-center" href="/listings">
-      <i class="fa-solid fa-globe-americas me-2"></i>
-      <span>StayNest</span>
-    </a>
-
-    <!-- Desktop Search -->
-    <div class="d-none d-lg-flex flex-grow-1 justify-content-center">
-      <div class="search-wrapper border rounded-pill px-3 py-1 d-flex align-items-center shadow-sm">
-        <input type="text" class="form-control border-0 me-2" placeholder="Search destinations">
-        <button class="btn btn-primary rounded-circle p-2">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Navigation & Profile -->
-    <div class="d-flex align-items-center">
-      <!-- Links -->
-      <div class="d-none d-lg-flex align-items-center me-3">
-        <a href="/" class="nav-link text-dark me-3">Home</a>
-        <a href="/listings" class="nav-link text-dark me-3">Explore</a>
-        <a href="/listings/new" class="btn btn-outline-primary d-flex align-items-center">
-          <i class="fa-solid fa-plus me-1"></i>Host your home
+        <!-- Logo -->
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            
+            <div class="logo" data-aos="fade-right">Stay<span>Nest</span></div>
         </a>
-      </div>
 
-      <!-- Profile Dropdown -->
-      <div class="dropdown">
-        <button class="btn btn-light rounded-circle d-flex align-items-center" data-bs-toggle="dropdown">
-          <i class="fa-solid fa-bars me-2"></i>
-          <i class="fa-solid fa-user"></i>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <% if(!currUser) { %>
-          <li><a class="dropdown-item" href="/signup"><i class="fa-solid fa-user-plus me-2"></i>Sign up</a></li>
-          <li><a class="dropdown-item" href="/login"><i class="fa-solid fa-sign-in-alt me-2"></i>Log in</a></li>
-          <% } %>
-          <% if(currUser) { %>
-          <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-sign-out-alt me-2"></i>Log out</a></li>
-          <% } %>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="/listings/new"><i class="fa-solid fa-home me-2"></i>Host your home</a></li>
-          <li><a class="dropdown-item" href="/account"><i class="fa-solid fa-user-cog me-2"></i>Account</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#"><i class="fa-solid fa-question-circle me-2"></i>Help Center</a></li>
-        </ul>
-      </div>
+        <!-- Center Search Bar with Icon -->
+        <div class="search-container d-none d-lg-flex">
+            <form action="/listings/search" method="GET" class="d-flex position-relative w-100">
+                <input class="form-control rounded-pill" type="search" name="q" placeholder="Search destinations" aria-label="Search">
+                <button type="submit" class="btn search-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
 
-      <!-- Mobile Menu Toggle -->
-      <button class="btn btn-light d-lg-none ms-2" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+        <!-- Right Actions: Host, AI & Profile -->
+        <div class="nav-actions">
+          <a href="/" class="host-link d-none d-lg-block">Home</a>
+            <a href="/listings/new" class="host-link d-none d-lg-block">Become a host</a>
+            
+            <!-- AI Assistant Button -->
+            <button class="btn ai-assistant-btn d-none d-lg-flex" type="button" data-bs-toggle="offcanvas" data-bs-target="#aiChatbot" aria-controls="aiChatbot">
+                <i class="fa-solid fa-wand-magic-sparkles me-2"></i> AI Assistant
+            </button>
+            
+            <!-- Profile Dropdown -->
+            <div class="dropdown profile-dropdown">
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                    <i class="fa-solid fa-user-circle fs-4 text-secondary"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <% if(!currUser) { %>
+                        <li><a class="dropdown-item fw-bold" href="/signup">Sign up</a></li>
+                        <li><a class="dropdown-item" href="/login">Log in</a></li>
+                    <% } else { %>
+                        <li><a class="dropdown-item" href="/account">My Account</a></li>
+                        <li><a class="dropdown-item" href="/logout">Log out</a></li>
+                    <% } %>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/listings/new">Host your home</a></li>
+                    <!-- Mobile AI Assistant Link -->
+                    <li class="d-lg-none"><a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#aiChatbot">AI Assistant</a></li>
+                    <li><a class="dropdown-item" href="#">Help Center</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-
-  </div>
 </nav>
 
-<!-- Mobile Search -->
-<div class="d-lg-none p-3 bg-light">
-  <div class="d-flex align-items-center border rounded-pill px-3 py-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#searchModal">
-    <i class="fa-solid fa-magnifying-glass me-3 text-muted"></i>
-    <div>
-      <div class="fw-bold">Where to?</div>
-      <div class="text-muted small">Anywhere • Any week • Add guests</div>
-    </div>
-    <i class="fa-solid fa-sliders-h ms-auto text-muted"></i>
-  </div>
+<!-- Mobile Search Bar with Icon -->
+<div class="d-lg-none p-3 bg-light border-bottom search-container">
+     <form action="/listings/search" method="GET" class="d-flex position-relative w-100">
+        <input class="form-control rounded-pill" type="search" name="q" placeholder="Search destinations" aria-label="Search">
+        <button type="submit" class="btn search-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </form>
 </div>
 
-<!-- Mobile Menu Offcanvas -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title">Menu</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div class="d-flex flex-column">
-      <% if(!currUser) { %>
-      <a href="/signup" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-user-plus me-3"></i>Sign up</a>
-      <a href="/login" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-sign-in-alt me-3"></i>Log in</a>
-      <% } %>
-      <% if(currUser) { %>
-      <a href="/logout" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-sign-out-alt me-3"></i>Log out</a>
-      <% } %>
-      <hr>
-      <a href="/listings" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-home me-3"></i>Home</a>
-      <a href="/listings" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-compass me-3"></i>Explore</a>
-      <a href="/listings/new" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-plus me-3"></i>Host your home</a>
-      <hr>
-      <a href="#" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-question-circle me-3"></i>Help Center</a>
-      <a href="#" class="mb-2 d-flex align-items-center"><i class="fa-solid fa-globe me-3"></i>Language</a>
-    </div>
-  </div>
-</div>
 
-<!-- Mobile Search Modal -->
-<div class="modal fade" id="searchModal" tabindex="-1">
-  <div class="modal-dialog modal-fullscreen">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <div class="p-4">
-          <h2 class="mb-4">Where to?</h2>
-          <div class="d-flex flex-column gap-3">
-            <div>
-              <label class="form-label">I'm looking for</label>
-              <input type="text" class="form-control" placeholder="Search destinations">
+<!-- AI Chatbot Offcanvas Sidebar -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="aiChatbot" aria-labelledby="aiChatbotLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="aiChatbotLabel">✨ StayNest Assistant</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+        <div class="chat-body flex-grow-1" id="chatBody">
+            <!-- Chat messages will appear here -->
+            <div class="chat-message bot">
+                Hi there! Ask me anything about travel destinations or planning your stay.
             </div>
-            <div>
-              <label class="form-label">When</label>
-              <div class="d-flex gap-2">
-                <input type="text" class="form-control" placeholder="Check in">
-                <input type="text" class="form-control" placeholder="Check out">
-              </div>
-            </div>
-            <div>
-              <label class="form-label">Who</label>
-              <input type="text" class="form-control" placeholder="Add guests">
-            </div>
-            <button class="btn btn-primary mt-3 d-flex align-items-center justify-content-center">
-              <i class="fa-solid fa-magnifying-glass me-2"></i>Search
-            </button>
-          </div>
         </div>
-      </div>
+        <div class="chat-footer mt-3">
+            <input type="text" id="chatInput" class="form-control" placeholder="Ask a question...">
+            <button class="btn btn-primary" id="sendMessage">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
     </div>
-  </div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // --- Existing Navbar Scroll Effect ---
+    const navbar = document.getElementById('navbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 10);
+        });
+    }
+
+    // --- New Chatbot Logic ---
+    const sendMessageBtn = document.getElementById('sendMessage');
+    const chatInput = document.getElementById('chatInput');
+    const chatBody = document.getElementById('chatBody');
+
+    if (sendMessageBtn && chatInput && chatBody) {
+        // Function to add a message to the chat body
+        const addMessage = (message, sender, id = null) => {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}`;
+            if (id) {
+                messageDiv.id = id;
+            }
+            messageDiv.textContent = message;
+            chatBody.appendChild(messageDiv);
+            // Scroll to the bottom
+            chatBody.scrollTop = chatBody.scrollHeight;
+            return messageDiv; // Return the element to allow updating it later
+        };
+        
+        // Function to update a message (for loading indicators)
+        const updateMessage = (element, newMessage) => {
+            if (element) {
+                element.textContent = newMessage;
+            }
+        };
+
+        // Function to call the Gemini API
+        const getGeminiResponse = async (userMessage) => {
+            // IMPORTANT: The API key is handled by the environment. Do not add it here.
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            
+            const prompt = `You are a helpful travel assistant for a website called StayNest. A user is asking: "${userMessage}". Provide a friendly and concise response.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    // Throw an error with the status text to provide more context
+                    throw new Error(`API request failed with status ${response.status}: ${response.statusText}`);
+                }
+                const result = await response.json();
+                // Add a check to ensure the response structure is as expected
+                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content.parts.length > 0) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    throw new Error("Invalid response structure from API.");
+                }
+            } catch (error) {
+                // Log the detailed error to the console for debugging
+                console.error("Error calling Gemini API:", error);
+                // Return a more informative error message to the user
+                return `Sorry, I'm having trouble connecting. Please check the console for details. (Error: ${error.message})`;
+            }
+        };
+
+        // Handle sending a message
+        const handleSendMessage = async () => {
+            const userMessage = chatInput.value.trim();
+            if (userMessage === "") return;
+
+            addMessage(userMessage, 'user');
+            chatInput.value = ""; // Clear input field
+            chatInput.disabled = true; // Disable input while bot is replying
+            sendMessageBtn.disabled = true;
+
+            // Add a "typing" indicator
+            const loadingIndicator = addMessage("Bot is typing...", 'bot', 'loading-indicator');
+
+            // Get and display the bot's response
+            const botResponse = await getGeminiResponse(userMessage);
+            
+            // Update the "typing" message with the actual response
+            updateMessage(loadingIndicator, botResponse);
+            
+            chatInput.disabled = false; // Re-enable input
+            sendMessageBtn.disabled = false;
+            chatInput.focus();
+        };
+
+        sendMessageBtn.addEventListener('click', handleSendMessage);
+        // Allow sending with the "Enter" key
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSendMessage();
+            }
+        });
+    }
+});
+</script>

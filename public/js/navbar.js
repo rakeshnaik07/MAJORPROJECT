@@ -1,138 +1,76 @@
-// Navbar Interactive Effects  
-document.addEventListener('DOMContentLoaded', function() {  
-    initializeNavbar();  
-});  
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Existing Navbar Scroll Effect ---
+    const navbar = document.getElementById('navbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 10);
+        });
+    }
 
-function initializeNavbar() {  
-    setupScrollEffects();  
-    setupSearchInteractions();  
-    setupMobileMenu();  
-}  
+    // --- New Chatbot Logic ---
+    const sendMessageBtn = document.getElementById('sendMessage');
+    const chatInput = document.getElementById('chatInput');
+    const chatBody = document.getElementById('chatBody');
 
-// Scroll effects for navbar  
-function setupScrollEffects() {  
-    const navbar = document.querySelector('.wanderlust-navbar');  
-    let lastScrollTop = 0;  
+    if (sendMessageBtn && chatInput && chatBody) {
+        // Function to add a message to the chat body
+        const addMessage = (message, sender) => {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}`;
+            messageDiv.textContent = message;
+            chatBody.appendChild(messageDiv);
+            // Scroll to the bottom
+            chatBody.scrollTop = chatBody.scrollHeight;
+        };
 
-    window.addEventListener('scroll', function() {  
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;  
+        // Function to call the Gemini API
+        const getGeminiResponse = async (userMessage) => {
+            // IMPORTANT: The API key is handled by the environment. Do not add it here.
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            
+            const prompt = `You are a helpful travel assistant for a website called StayNest. A user is asking: "${userMessage}". Provide a friendly and concise response.`;
 
-        // Add scrolled class for styling  
-        if (scrollTop > 50) {  
-            navbar.classList.add('scrolled');  
-        } else {  
-            navbar.classList.remove('scrolled');  
-        }  
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
 
-        // Hide/show navbar on scroll  
-        if (scrollTop > lastScrollTop && scrollTop > 100) {  
-            // Scrolling down  
-            navbar.style.transform = 'translateY(-100%)';  
-        } else {  
-            // Scrolling up  
-            navbar.style.transform = 'translateY(0)';  
-        }  
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status}`);
+                }
+                const result = await response.json();
+                return result.candidates[0].content.parts[0].text;
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                return "Sorry, I'm having trouble connecting. Please try again later.";
+            }
+        };
 
-        lastScrollTop = scrollTop;  
-    });  
-}  
+        // Handle sending a message
+        const handleSendMessage = async () => {
+            const userMessage = chatInput.value.trim();
+            if (userMessage === "") return;
 
-// Search interactions  
-function setupSearchInteractions() {  
-    const searchSections = document.querySelectorAll('.search-section');  
-    const searchInputs = document.querySelectorAll('.search-input');  
-    const searchBtn = document.querySelector('.search-btn');  
+            addMessage(userMessage, 'user');
+            chatInput.value = ""; // Clear input field
 
-    // Add focus effects to search sections  
-    searchInputs.forEach(input => {  
-        input.addEventListener('focus', function() {  
-            this.closest('.search-section').classList.add('focused');  
-            this.closest('.search-wrapper').classList.add('active');  
-        });  
+            // Get and display the bot's response
+            const botResponse = await getGeminiResponse(userMessage);
+            addMessage(botResponse, 'bot');
+        };
 
-        input.addEventListener('blur', function() {  
-            this.closest('.search-section').classList.remove('focused');  
-            this.closest('.search-wrapper').classList.remove('active');  
-        });  
-    });  
-
-    // Search button functionality  
-    if (searchBtn) {  
-        searchBtn.addEventListener('click', function() {  
-            performSearch();  
-        });  
-    }  
-
-    // Mobile search modal  
-    const mobileSearch = document.querySelector('.mobile-search-wrapper');  
-    if (mobileSearch) {  
-        mobileSearch.addEventListener('click', function() {  
-            this.style.transform = 'scale(0.95)';  
-            setTimeout(() => {  
-                this.style.transform = 'scale(1)';  
-            }, 150);  
-        });  
-    }  
-}  
-
-// Mobile menu interactions  
-function setupMobileMenu() {  
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');  
-    const mobileNavItems = document.querySelectorAll('.mobile-nav-item');  
-
-    if (mobileMenuBtn) {  
-        mobileMenuBtn.addEventListener('click', function() {  
-            this.style.transform = 'scale(0.9)';  
-            setTimeout(() => {  
-                this.style.transform = 'scale(1)';  
-            }, 150);  
-        });  
-    }  
-
-    // Add staggered animation to mobile nav items  
-    mobileNavItems.forEach((item, index) => {  
-        item.addEventListener('mouseenter', function() {  
-            this.style.transform = 'translateX(8px)';  
-        });  
-
-        item.addEventListener('mouseleave', function() {  
-            this.style.transform = 'translateX(0)';  
-        });  
-    });  
-}  
-
-// Search functionality  
-function performSearch() {  
-    const searchBtn = document.querySelector('.search-btn');  
-    const whereInput = document.querySelector('.search-input');  
-
-    if (!whereInput || !whereInput.value.trim()) {  
-        showSearchError();  
-        return;  
-    }  
-
-    // Show loading state  
-    searchBtn.classList.add('loading');  
-    searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';  
-
-    // Simulate search (replace with actual search logic)  
-    setTimeout(() => {  
-        // Redirect to search results  
-        window.location.href = `/listings?search=${encodeURIComponent(whereInput.value.trim())}`;  
-    }, 1200);  
-}  
-
-// Show search error feedback  
-function showSearchError() {  
-    const errorMsg = document.createElement('div');  
-    errorMsg.className = 'search-error';  
-    errorMsg.textContent = 'Please enter a search query.';  
-
-    const searchWrapper = document.querySelector('.search-wrapper');  
-    if (searchWrapper && !document.querySelector('.search-error')) {  
-        searchWrapper.appendChild(errorMsg);  
-        setTimeout(() => {  
-            errorMsg.remove();  
-        }, 2000);  
-    }  
-}  
+        sendMessageBtn.addEventListener('click', handleSendMessage);
+        // Allow sending with the "Enter" key
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSendMessage();
+            }
+        });
+    }
+});
