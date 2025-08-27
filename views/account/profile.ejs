@@ -22,7 +22,7 @@
                style="width:72px;height:72px;object-fit:cover;border-radius:50%;">
         <% } else { %>
           <div class="d-inline-flex align-items-center justify-content-center"
-               style="width:72px;height:72px;border-radius:50%;background:#ff385c;color:#fff;font-weight:700;">
+               style="width:72px;height:72px;border-radius:50%;background:#f97316;color:#fff;font-weight:700;">
             <%= initials %>
           </div>
         <% } %>
@@ -70,8 +70,7 @@
       </div>
 
       <div class="mt-4 d-flex flex-wrap gap-2">
-        <a href="/account/edit" class="btn btn-dark">Edit Profile</a>
-        <a href="/account/change-password" class="btn btn-outline-dark">Change Password</a>
+        <a href="/account/edit" class="btn btn-custom">Edit Profile</a>
       </div>
     </div>
   </div>
@@ -81,7 +80,6 @@
   <div class="mt-5">
     <div class="d-flex align-items-center justify-content-between">
       <h3 class="fw-bold mb-3">Your Reservations</h3>
-      <a href="/listings" class="btn btn-sm btn-outline-dark">Explore Listings</a>
     </div>
 
     <% if (!reservations || reservations.length === 0) { %>
@@ -113,7 +111,7 @@
                      alt="No Image Available">
               <% } %>
 
-              <div class="card-body">
+              <div class="card-body px-3 mt-3">
                 <% if (res.listing) { %>
                   <h5 class="card-title mb-2">
                     <a href="/listings/<%= res.listing._id %>" class="text-dark text-decoration-none">
@@ -137,12 +135,12 @@
                 </p>
 
                 <p class="mb-1"><strong>Guests:</strong> <%= res.guests %></p>
-                <p class="fw-bold text-danger mb-0">₹<%= res.totalPrice %></p>
+                <p class="fw-bold text-text-dark mb-0">₹<%= res.totalPrice %></p>
               </div>
 
               <div class="card-footer bg-white border-0 d-flex gap-2 pb-3 px-3">
                 <% if (res.listing) { %>
-                  <a href="/listings/<%= res.listing._id %>" class="btn btn-sm btn-dark">View listing</a>
+                  <a href="/listings/<%= res.listing._id %>" class="btn btn-sm btn-custom">View listing</a>
                 <% } %>
               </div>
             </div>
@@ -152,3 +150,10 @@
     <% } %>
   </div>
 </div>
+
+<style>
+  .btn-custom{
+    background-color: #f97316;
+    color: white;
+  }
+  </style>

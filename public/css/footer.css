@@ -1,188 +1,93 @@
-
-/* Airbnb-style Footer */
-footer {
-  border-top: 1px solid #ddd;
-  background-color: #f7f7f7;
+/* Footer Styles */
+.staynest-footer {
+  background-color: #f9fafb; /* light background */
+  color: #1e293b; /* dark navy text */
   padding: 40px 20px 20px;
-  font-size: 14px;
-  color: #717171;
+  font-family: Arial, sans-serif;
+  border-top: 1px solid #e5e7eb; /* subtle border */
 }
 
 .footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 30px;
 }
 
-.footer-section h4 {
-  font-weight: 600;
-  font-size: 14px;
-  margin-bottom: 15px;
-  color: #222;
+.footer-left {
+  flex: 1;
+  min-width: 200px;
 }
 
-.footer-section a {
-  display: block;
-  text-decoration: none;
-  color: #717171;
+.footer-logo {
+  color: #f97316; /* orange accent */
+  font-size: 1.5rem;
   margin-bottom: 10px;
-  transition: color 0.2s ease;
+  font-weight: bold;
 }
 
-.footer-section a:hover {
-  color: #000;
+.footer-tagline {
+  font-size: 0.9rem;
+  color: #475569; /* muted navy */
 }
 
-/* Bottom Bar */
-.footer-bottom {
-  border-top: 1px solid #ddd;
-  margin-top: 30px;
-  padding-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 13px;
+.footer-center {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
 }
 
-.footer-bottom .left,
-.footer-bottom .right {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer-bottom a {
+.footer-center a {
+  display: inline-block;
+  margin: 5px 10px;
+  color: #1e293b;
   text-decoration: none;
-  color: #717171;
-}
-
-.footer-bottom a:hover {
-  color: #000;
-}
-
-/* Social Media Icons */
-.social-icons {
-  display: flex;
-  gap: 12px;
-  margin-left: 10px;
-}
-
-.social-icons a {
-  color: #717171;
-  font-size: 16px;
-  transition: color 0.2s ease;
-}
-
-.social-icons a:hover {
-  color: #000;
-}
-
-@media (min-width: 600px) {
-  .footer-bottom {
-    flex-direction: row;
-  }
-
-  .footer-bottom .right {
-    justify-content: flex-end;
-  }
-}
-
-
-/* Listings Page  Cards */
-
-.listing-card{
-    border: none !important;
-    margin-bottom: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.card-img-top {
-    border-radius: 1rem !important;
-    width: 100% !important;
-    object-fit: cover;
-} 
-
-.card-body {
-    padding: 0;
-}
-
-.card-text p{
-  font-weight: 400;
-}
-.listing-link {
-  text-decoration: none;
-  color: inherit; /* This will make the link inherit the default text color */
-}
-
-.card-img-overlay:hover{
-  opacity: 0.2;
-  background-color: white;
-}
-
-.add-btn {
-  background-color: #fe424d !important;
-  border: none !important;
-  margin-bottom: 2rem;
-}
-
-/* Edit page */
-.edit-btn {
-  background-color: #fe424d !important;
-  border: none !important;
-  margin-bottom: 2rem;
-}
-
-/* show page */
-.show-img {
-  height: 30vh;
-}
-
-
-
-/* Desktop search bar */
-.wanderlust-search {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 40px;
-  padding: 4px 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.wanderlust-search input {
-  width: 200px;
   font-size: 0.95rem;
-  font-weight: 500;
+  transition: color 0.3s;
 }
 
-.wanderlust-search button {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.footer-center a:hover {
+  color: #f97316; /* accent hover */
 }
 
-/* Mobile search bar */
-.wanderlust-mobile-search {
-  position: sticky;
-  top: 56px; /* Just below navbar */
-  z-index: 999;
+.footer-right {
+  flex: 1;
+  min-width: 200px;
+  text-align: right;
 }
 
-.wanderlust-mobile-search .rounded-pill {
-  cursor: pointer;
+.footer-right a {
+  margin-left: 10px;
+  font-size: 1.2rem;
+  color: #1e293b;
+  transition: color 0.3s;
 }
 
-
-main, .container, .content {
-  margin-top: 20px; /* adjust based on your navbar height */
+.footer-right a:hover {
+  color: #f97316;
 }
 
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: #64748b; /* subtle gray */
+  border-top: 1px solid #e5e7eb;
+  padding-top: 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-right {
+    text-align: center;
+    margin-top: 15px;
+  }
+}

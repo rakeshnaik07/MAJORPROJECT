@@ -26,7 +26,7 @@
 
         <!-- Right Actions: Host, AI & Profile -->
         <div class="nav-actions">
-          <a href="/" class="host-link d-none d-lg-block">Home</a>
+          <a href="/listings" class="host-link d-none d-lg-block">Explore</a>
             <a href="/listings/new" class="host-link d-none d-lg-block">Become a host</a>
             
             <!-- AI Assistant Button -->
@@ -92,110 +92,5 @@
     </div>
 </div>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // --- Existing Navbar Scroll Effect ---
-    const navbar = document.getElementById('navbar');
-    if (navbar) {
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 10);
-        });
-    }
-
-    // --- New Chatbot Logic ---
-    const sendMessageBtn = document.getElementById('sendMessage');
-    const chatInput = document.getElementById('chatInput');
-    const chatBody = document.getElementById('chatBody');
-
-    if (sendMessageBtn && chatInput && chatBody) {
-        // Function to add a message to the chat body
-        const addMessage = (message, sender, id = null) => {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `chat-message ${sender}`;
-            if (id) {
-                messageDiv.id = id;
-            }
-            messageDiv.textContent = message;
-            chatBody.appendChild(messageDiv);
-            // Scroll to the bottom
-            chatBody.scrollTop = chatBody.scrollHeight;
-            return messageDiv; // Return the element to allow updating it later
-        };
-        
-        // Function to update a message (for loading indicators)
-        const updateMessage = (element, newMessage) => {
-            if (element) {
-                element.textContent = newMessage;
-            }
-        };
-
-        // Function to call the Gemini API
-        const getGeminiResponse = async (userMessage) => {
-            // IMPORTANT: The API key is handled by the environment. Do not add it here.
-            const apiKey = ""; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-            
-            const prompt = `You are a helpful travel assistant for a website called StayNest. A user is asking: "${userMessage}". Provide a friendly and concise response.`;
-
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }]
-            };
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (!response.ok) {
-                    // Throw an error with the status text to provide more context
-                    throw new Error(`API request failed with status ${response.status}: ${response.statusText}`);
-                }
-                const result = await response.json();
-                // Add a check to ensure the response structure is as expected
-                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content.parts.length > 0) {
-                    return result.candidates[0].content.parts[0].text;
-                } else {
-                    throw new Error("Invalid response structure from API.");
-                }
-            } catch (error) {
-                // Log the detailed error to the console for debugging
-                console.error("Error calling Gemini API:", error);
-                // Return a more informative error message to the user
-                return `Sorry, I'm having trouble connecting. Please check the console for details. (Error: ${error.message})`;
-            }
-        };
-
-        // Handle sending a message
-        const handleSendMessage = async () => {
-            const userMessage = chatInput.value.trim();
-            if (userMessage === "") return;
-
-            addMessage(userMessage, 'user');
-            chatInput.value = ""; // Clear input field
-            chatInput.disabled = true; // Disable input while bot is replying
-            sendMessageBtn.disabled = true;
-
-            // Add a "typing" indicator
-            const loadingIndicator = addMessage("Bot is typing...", 'bot', 'loading-indicator');
-
-            // Get and display the bot's response
-            const botResponse = await getGeminiResponse(userMessage);
-            
-            // Update the "typing" message with the actual response
-            updateMessage(loadingIndicator, botResponse);
-            
-            chatInput.disabled = false; // Re-enable input
-            sendMessageBtn.disabled = false;
-            chatInput.focus();
-        };
-
-        sendMessageBtn.addEventListener('click', handleSendMessage);
-        // Allow sending with the "Enter" key
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                handleSendMessage();
-            }
-        });
-    }
-});
-</script>
+    
+  </script>

@@ -9,10 +9,16 @@
     --border-color: #e5e7eb;
     --background-soft: #f9fafb;
 }
+  body {
+  background: #fffaf6;
+  color: #222;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
 .staynest-navbar-v2 {
     transition: box-shadow 0.3s ease;
-    background-color: white;
+    background-color: #fffaf6;
     height: 80px;
     padding: 0 2.5rem;
 }
@@ -27,6 +33,7 @@
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
     gap: 2rem;
+    
 }
 
 /* Logo */
@@ -71,6 +78,7 @@
 }
 
 /* Right-side Actions */
+
 .nav-actions {
     display: flex;
     align-items: center;
@@ -87,7 +95,7 @@
     transition: background-color 0.3s ease;
 }
 .host-link:hover {
-    background-color: var(--background-soft);
+    color: var(--brand-color);
 }
 
 /* AI Assistant Button */
@@ -207,5 +215,6 @@
     .logo span {
       color: #f97316; /* Orange accent */
     }
+
 
     

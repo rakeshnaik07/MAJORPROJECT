@@ -14,6 +14,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js")
 
+const bodyParser = require("body-parser");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 
 
@@ -28,7 +30,8 @@ app.use(express.urlencoded({ extended: true })); // to parse form data
 app.use(express.static(path.join(__dirname, 'public'))); // to serve static files
 app.use(methodOverride('_method')); // to support PUT and DELETE methods in forms
 app.engine('ejs', ejsMate); // to use ejs-mate for layout support
-
+app.use(express.static("public"));
+app.use(bodyParser.json());
 
 
 const dbUrl = process.env.ATLASDB_URL
@@ -68,6 +71,7 @@ const sessionOptions = {
 
 }
 
+app.use(express.json());
 
 
 app.use(session(sessionOptions))
@@ -105,7 +109,6 @@ app.get("/demouser", async (req, res) => {
 const accountRoutes = require("./routes/account");
 const { options } = require('joi');
 app.use("/account", accountRoutes);
-
 
 
 app.use("/", userRouter);  // Now signup will be at /users/signup

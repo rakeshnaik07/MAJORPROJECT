@@ -39,27 +39,9 @@
                 <input type="text" name="listing[location]" placeholder="Enter Location" class="form-control" required>
                 <div class="invalid-feedback">Please Enter a Location !</div>
             </div>
-            <button class="btn btn-dark add-btn">Add</button>
+            <button class="btn btn-primary mb-4">Add</button>
         </form>
     </div>
+    <script src="/js/script.js"></script>
 </body>
-
 </html>
-<script>
-    // This code enables Bootstrap validation styling
-    (() => {
-        'use strict';
-        const forms = document.querySelectorAll('.needs-validation');
-
-        Array.from(forms).forEach(form => {
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-
-                form.classList.add('was-validated');
-            }, false);
-        });
-    })();
-</script>

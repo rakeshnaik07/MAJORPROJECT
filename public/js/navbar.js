@@ -74,3 +74,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+const chatbox = document.getElementById("chatbox");
+    const input = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
+
+    sendBtn.addEventListener("click", async () => {
+      const message = input.value.trim();
+      if (!message) return;
+
+      // Show user message
+      chatbox.innerHTML += `<div class="user">You: ${message}</div>`;
+
+      // Send to backend
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+      });
+
+      const data = await response.json();
+      chatbox.innerHTML += `<div class="bot">Bot: ${data.reply}</div>`;
+
+      input.value = "";
+      chatbox.scrollTop = chatbox.scrollHeight; // Auto scroll
+    });

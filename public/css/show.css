@@ -94,3 +94,12 @@
   color: #FFD700;
 }
 
+.btn-custom-orange {
+  color: #fff; /* Sets the text color to white */
+  background-color: #f97316; /* Sets your custom orange background */
+  border-color: #f97316; /* Sets a matching border color */
+}
+.btn-custom-orange:hover {
+  background-color: #e66a14; /* A slightly darker shade for the hover effect */
+  border-color: #e66a14;
+}

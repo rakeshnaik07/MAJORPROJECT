@@ -51,7 +51,7 @@
             <input type="text" name="listing[location]" value="<%= listing.location %>" class="form-control" required>  
             <div class="invalid-feedback">Please Enter a Location !</div>
         </div>
-        <button class="btn btn-dark add-btn mt-3">Update</button>
+        <button class="btn btn-primary add-btn mt-3 mb-4">Update</button>
         
        
     </form>
@@ -60,22 +60,3 @@
     <script src="/js/script.js"></script>
 </body>
 
-
-<script>
-    // This code enables Bootstrap validation styling
-    (() => {
-        'use strict';
-        const forms = document.querySelectorAll('.needs-validation');
-
-        Array.from(forms).forEach(form => {
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-
-                form.classList.add('was-validated');
-            }, false);
-        });
-    })();
-</script>
